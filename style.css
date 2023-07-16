@@ -62,6 +62,7 @@ body {
   font-size: 16px;
 }
 
+
 a {
   text-decoration: none;
   color: #ffffff;
@@ -74,8 +75,6 @@ ul {
   padding: 0;
 }
 
-h2 {
-}
 
 h3 {
   color: #ffb300;
@@ -277,6 +276,7 @@ h3 {
   padding-left: 25px;
   padding-bottom: 15px;
 }
+
 .resume .func .work ul li:hover::before,
 .resume .func .edu ul li:hover::before {
   animation: circle 1.2s infinite;
@@ -285,6 +285,23 @@ h3 {
 .resume .func .edu ul li:hover span {
   color: #fdd835;
 }
+.progress-bar {
+    width: 200px;
+    height: 14px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #4caf50;
+    width: 0%;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  
 @keyframes circle {
   from {
     box-shadow: 0 0 0 0px #fdd835;
@@ -420,7 +437,7 @@ h3 {
   stroke: #ffffff;
 }
 .resume .func .skills-soft ul li svg .cbar {
-  stroke-width: 3px;
+  stroke-width: 5px;
   stroke: #ffb300;
   stroke-linecap: round;
 }
