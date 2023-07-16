@@ -1,68 +1,57 @@
-(function() {
-    $(".skills-prog li")
-      .find(".skills-bar")
-      .each(function(i) {
-        $(this)
-          .find(".bar")
-          .delay(i * 150)
-          .animate(
-            {
-              width:
-                $(this)
-                  .parents()
-                  .attr("data-percent") + "%"
-            },
-            1000,
-            "linear",
-            function() {
-              return $(this).css({
-                "transition-duration": ".5s"
-              });
-            }
-          );
-      });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var progressBarElements = document.querySelectorAll(".progress-bar");
   
-    $(".skills-soft li")
-      .find("svg")
-      .each(function(i) {
-        var c, cbar, circle, percent, r;
-        circle = $(this).children(".cbar");
-        r = circle.attr("r");
-        c = Math.PI * (r * 2);
-        percent = $(this)
-          .parent()
-          .data("percent");
-        cbar = (100 - percent) / 100 * c;
-        circle.css({
-          "stroke-dashoffset": c,
-          "stroke-dasharray": c
-        });
-        circle.delay(i * 150).animate(
-          {
-            strokeDashoffset: cbar
-          },
-          1000,
-          "linear",
-          function() {
-            return circle.css({
-              "transition-duration": ".3s"
-            });
-          }
-        );
-        $(this)
-          .siblings("small")
-          .prop("Counter", 0)
-          .delay(i * 150)
-          .animate(
-            {
-              Counter: percent
-            },
-            {
-              duration: 1000,
-              step: function(now) {
-                return $(this).text(Math.ceil(now) + "%");
-              }
-            }
-          );
-      });
-  }.call(this));
+    progressBarElements.forEach(function(progressBar) {
+      var progressElement = progressBar.querySelector(".progress");
+      var progressPercentage = parseInt(progressBar.getAttribute("data-progress"));
+  
+      progressElement.style.width = progressPercentage + "%";
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var skillsSoftItems = document.querySelectorAll(".skills-soft li");
+  
+    skillsSoftItems.forEach(function(item) {
+      var circle = item.querySelector(".cbar");
+      var percent = parseInt(item.getAttribute("data-percent"));
+      var counterElement = item.querySelector("small");
+  
+      circle.style.strokeDasharray = circumference(circle) + "px";
+      circle.style.strokeDashoffset = circumference(circle);
+  
+      animateCircle(circle, percent);
+      animateCounter(counterElement, percent);
+    });
+  
+    function circumference(circle) {
+      var radius = circle.getAttribute("r");
+      return 2 * Math.PI * radius;
+    }
+  
+    function animateCircle(circle, percent) {
+      var offset = circumference(circle) * (1 - percent / 100);
+      circle.style.strokeDashoffset = offset;
+      circle.style.transition = "stroke-dashoffset 1s ease-in-out";
+    }
+  
+    function animateCounter(counterElement, percent) {
+      var duration = 1000;
+      var increment = Math.ceil(percent / (duration / 10));
+      var counter = 0;
+  
+      var interval = setInterval(function() {
+        counter += increment;
+        counterElement.textContent = counter + "%";
+        if (counter >= percent) {
+          clearInterval(interval);
+        }
+      }, 10);
+    }
+  });
+  
+ 
+  
+  
+  
